@@ -1,5 +1,5 @@
 # Source
-This project was copied by https://www.tektutorialshub.com/angular/angular-calculator-application/
+This project was copied from https://www.tektutorialshub.com/angular/angular-calculator-application/
 
 # WebApp
 

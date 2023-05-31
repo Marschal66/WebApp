@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ApiService } from './api.service';
 
 @Component({
   selector: 'app-root',
@@ -7,6 +8,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title: string = 'Taschenrechner';
+
+  constructor(private apiService: ApiService) { };
 
   input: string = '';
   result: string = '';
@@ -62,15 +65,9 @@ export class AppComponent {
     this.updateResult();
   }
 
-  formatInput(input: string) {
-    // format tmp to delete the last character while it is not a number
-    while (isNaN(Number(input.slice(-1)))) {
-      input = input.slice(0, -1);
-    }
-    return input;
-  }
-
   updateResult() {
-    this.result = eval(this.formatInput(this.input));
+    this.apiService.getMessage(this.input).subscribe((data: any) => {
+      this.result = data.result;
+    });
   }
 }

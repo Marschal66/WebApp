@@ -6,100 +6,71 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'WebApp';
- 
-  input:string = '';
-  result:string = '';
-  
- 
+  title: string = 'Taschenrechner';
+
+  input: string = '';
+  result: string = '';
+
   pressNum(num: string) {
-    
-    //Do Not Allow . more than once
-    if (num==".") {
-      if (this.input !="" ) {
- 
-        const lastNum=this.getLastOperand()
-        console.log(lastNum.lastIndexOf("."))
-        if (lastNum.lastIndexOf(".") >= 0) return;
+    if (num == '.') {
+      // if the last character is not a number, then return
+      if (isNaN(Number(this.input.slice(-1)))) return;
+      // check if arithmetic operator is present in this.input
+      if (this.input.includes('+') || this.input.includes('-') || this.input.includes('*') || this.input.includes('/')) {
+        // check if the last number has a decimal point
+        if (this.input.split(/[-+*/]/).pop()?.includes('.')) return;
+      } else {
+        if (this.input.includes('.')) return;
       }
     }
- 
-    //Do Not Allow 0 at beginning. 
-    //Javascript will throw Octal literals are not allowed in strict mode.
-    if (num=="0") {
-      if (this.input=="" ) {
-        return;
-      }
-      const PrevKey = this.input[this.input.length - 1];
-      if (PrevKey === '/' || PrevKey === '*' || PrevKey === '-' || PrevKey === '+')  {
-          return;
-      }
+    if (num == '0') {
+      if (this.input == '') return;
+      // if it is a leading zero, then return
+      if (this.input.slice(-1) == '0' && this.input.length == 1) return;
+      // if the last character is not a number, then return
+      if (isNaN(Number(this.input.slice(-1)))) return;
     }
- 
-    this.input = this.input + num
-    this.calcAnswer();
+    this.setInput(this.input + num);
   }
- 
- 
-  getLastOperand() {
-    let pos:number;
-    console.log(this.input)
-    pos=this.input.toString().lastIndexOf("+")
-    if (this.input.toString().lastIndexOf("-") > pos) pos=this.input.lastIndexOf("-")
-    if (this.input.toString().lastIndexOf("*") > pos) pos=this.input.lastIndexOf("*")
-    if (this.input.toString().lastIndexOf("/") > pos) pos=this.input.lastIndexOf("/")
-    console.log('Last '+this.input.substr(pos+1))
-    return this.input.substr(pos+1)
-  }
- 
- 
+
   pressOperator(op: string) {
- 
-    //Do not allow operators more than once
-    const lastKey = this.input[this.input.length - 1];
-    if (lastKey === '/' || lastKey === '*' || lastKey === '-' || lastKey === '+')  {
-      return;
+    // if the last character is a dot, then delete it
+    if (this.input.slice(-1) == '.') {
+      this.setInput(this.input.slice(0, -1));
     }
-   
-    this.input = this.input + op
-    this.calcAnswer();
+    // if the last character is not a number, then return
+    if (isNaN(Number(this.input.slice(-1)))) return;
+    this.setInput(this.input + op);
   }
- 
- 
-  clear() {
-    if (this.input !="" ) {
-      this.input=this.input.substr(0, this.input.length-1)
+
+  reset() {
+    this.setInput('');
+  }
+
+  delete() {
+    console.log(this.input)
+    this.setInput(this.input.slice(0, -1));
+    console.log(this.input)
+  }
+
+  equal() {
+    this.updateResult();
+  }
+
+  setInput(input: string) {
+    this.input = input;
+    this.updateResult();
+  }
+
+  formatInput(input: string) {
+    // format tmp to delete the last character while it is not a number
+    while (isNaN(Number(input.slice(-1)))) {
+      input = input.slice(0, -1);
     }
+    return input;
   }
- 
-  allClear() {
-    this.result = '';
-    this.input = '';
+
+  updateResult() {
+    this.result = eval(this.formatInput(this.input));
   }
- 
-  calcAnswer() {
-    let formula = this.input;
- 
-    let lastKey = formula[formula.length - 1];
- 
-    if (lastKey === '.')  {
-      formula=formula.substr(0,formula.length - 1);
-    }
- 
-    lastKey = formula[formula.length - 1];
- 
-    if (lastKey === '/' || lastKey === '*' || lastKey === '-' || lastKey === '+' || lastKey === '.')  {
-      formula=formula.substr(0,formula.length - 1);
-    }
- 
-    console.log("Formula " +formula);
-    this.result = eval(formula);
-  }
- 
-  getAnswer() {
-    this.calcAnswer();
-    this.input = this.result;
-    if (this.input=="0") this.input="";
-  }
- 
 }

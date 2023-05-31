@@ -8,10 +8,13 @@ app.use((req, res, next) => {
 });
 
 app.get('/api/calculate', (req, res) => {
+    let waitTime = getRandomInt(3000);
+    console.log('waitTime: ' + waitTime);
     // get the input from the url
-    let input = req.query.input;
-    console.log('input: ' + input);
-    res.json({ result: eval(formatInput(input)) });
+    setTimeout(() => {
+        let input = req.query.input;
+        res.json({ result: eval(formatInput(input)) });
+    }, waitTime);
 });
 
 function formatInput(input) {
@@ -20,6 +23,10 @@ function formatInput(input) {
         input = input.slice(0, -1);
     }
     return input;
+}
+
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
 }
 
 app.listen(3000, () => console.log('Server started on port 3000'));

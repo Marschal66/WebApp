@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ApiService } from './api.service';
+import { SpinnerService } from './spinner.service';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,7 @@ import { ApiService } from './api.service';
 export class AppComponent {
   title: string = 'Taschenrechner';
 
-  constructor(private apiService: ApiService) { };
+  constructor(public spinnerService: SpinnerService, private apiService: ApiService) { };
 
   input: string = '';
   result: string = '';

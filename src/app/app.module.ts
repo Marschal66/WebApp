@@ -5,11 +5,15 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CustomHttpInterceptor } from './http-interceptor';
+import { CustomHttpInterceptor } from './util/http-interceptor';
+import { CalculatorComponent } from './calculator/calculator.component';
+import { QuizComponent } from './quiz/quiz.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CalculatorComponent,
+    QuizComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,53 @@
+<div class="container text-center">
+    <div class="jumbotron col-sm-4 p-2 m-0 bg-inverse">
+        <div class=" py-1">
+            <div class="row">
+                <h1 class="text-light">{{title}}</h1>
+            </div>
+            <div class="row">
+                <input type="text" disabled class="col text-light m-1 p-1 bg-dark fw-bold text-end" value="{{input}}" />
+            </div>
+            <div class="row">
+                <mat-spinner [diameter]="43" *ngIf="spinnerService.visibility | async"></mat-spinner>
+                <input type="text" *ngIf="(spinnerService.visibility | async) == false" disabled
+                    class="col text-light m-1 p-1 bg-dark fw-bold text-end" value="{{result}}" />
+            </div>
+        </div>
+        <div class="row py-1">
+            <button class="btn col-6 text-light fw-bold btn-danger" id="btnReset" type="button"
+                (click)="reset()">C</button>
+            <button class="btn col-3 text-light fw-bold btn-warning" id="btnDelete" type="button"
+                (click)="delete()">del</button>
+            <button class="btn col-3 text-light fw-bold btn-secondary" type="button"
+                (click)="pressOperator('/')">/</button>
+        </div>
+        <div class="row py-1">
+            <button class="btn col-3 text-light fw-bold btn-primary" type="button" (click)="pressNum('7')">7</button>
+            <button class="btn col-3 text-light fw-bold btn-primary" type="button" (click)="pressNum('8')">8</button>
+            <button class="btn col-3 text-light fw-bold btn-primary" type="button" (click)="pressNum('9')">9</button>
+            <button class="btn col-3 text-light fw-bold btn-secondary" type="button"
+                (click)="pressOperator('*')">X</button>
+        </div>
+        <div class="row py-1">
+            <button class="btn col-3 text-light fw-bold btn-primary" type="button" (click)="pressNum('4')">4</button>
+            <button class="btn col-3 text-light fw-bold btn-primary" type="button" (click)="pressNum('5')">5</button>
+            <button class="btn col-3 text-light fw-bold btn-primary" type="button" (click)="pressNum('6')">6</button>
+            <button class="btn col-3 text-light fw-bold btn-secondary" type="button"
+                (click)="pressOperator('-')">-</button>
+        </div>
+        <div class="row py-1">
+            <button class="btn col-3 text-light fw-bold btn-primary" type="button" (click)="pressNum('1')">1</button>
+            <button class="btn col-3 text-light fw-bold btn-primary" type="button" (click)="pressNum('2')">2</button>
+            <button class="btn col-3 text-light fw-bold btn-primary" type="button" (click)="pressNum('3')">3</button>
+            <button class="btn col-3 text-light fw-bold btn-secondary" type="button"
+                (click)="pressOperator('+')">+</button>
+        </div>
+        <div class="row py-1">
+            <div class="col-3"></div>
+            <button class="btn col-3 text-light fw-bold btn-primary" type="button" (click)="pressNum('0')">0</button>
+            <button class="btn col-3 text-light fw-bold btn-info" type="button" (click)="pressNum('.')">.</button>
+            <button class="btn col-3 text-light fw-bold btn-success" id="btnEqual" type="button"
+                (click)="equal()">=</button>
+        </div>
+    </div>
+</div>

@@ -17,6 +17,7 @@ export class CalculatorComponent {
 
   pressNum(num: string) {
     if (num == '.') {
+      if (this.input == '') return;
       // if the last character is not a number, then return
       if (isNaN(Number(this.input.slice(-1)))) return;
       // check if arithmetic operator is present in this.input

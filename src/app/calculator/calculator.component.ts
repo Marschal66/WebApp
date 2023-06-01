@@ -53,9 +53,7 @@ export class CalculatorComponent {
   }
 
   delete() {
-    console.log(this.input)
     this.setInput(this.input.slice(0, -1));
-    console.log(this.input)
   }
 
   equal() {

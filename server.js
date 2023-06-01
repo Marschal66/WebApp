@@ -10,7 +10,7 @@ app.use((req, res, next) => {
 app.get('/api/calculate', (req, res) => {
     let waitTime = getRandomInt(3000);
     let input = req.query.input;
-    console.log('waitTime: ' + waitTime, 'input: ' + input);
+    console.log('waitTime: "' + waitTime, '", input: "' + input + '"');
     // get the input from the url
     setTimeout(() => {
         res.json({ result: eval(formatInput(input)) });
